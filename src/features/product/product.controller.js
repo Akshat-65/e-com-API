@@ -1,17 +1,33 @@
+import ProductModel from "./product.model.js";
+
 export default class ProductController {
-    getAllProducts(req,res){
+  getAllProducts(req, res) {
+    const products = ProductModel.getAll();
+    res.status(200).send(products)
+  }
 
+  addProduct(req, res) {
+    const {name, price , sizes} = req.body;
+    const newProduct = {
+        name,
+        price: Math.floor(price),
+        sizes: sizes.split(','),
+        imageUrl : req.file.filename
     }
+   const createdProduct =  ProductModel.add(newProduct);
+   res.status(201).send(createdProduct);
+  }
 
-    addProduct(req,res){
-
+  getOneProduct(req, res) {
+    const getProductId = req.params.id;
+    let product = ProductModel.getProductById(getProductId);
+    if(!product){
+        res.status(404).send('Product not found');
     }
+    res.status(200).send(product);
+  }
 
-    rateProduct(req,res){
+  rateProduct(req, res) {}
 
-    }
-
-    getOneProduct(req,res){
-        
-    }
+  
 }
