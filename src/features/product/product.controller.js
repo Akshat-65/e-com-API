@@ -30,6 +30,7 @@ export default class ProductController {
   rateProduct(req, res) {}
 
   filterProducts(req,res){
+    console.log(req.query);
     const minPrice = req.query.minPrice;
     const maxPrice  =req.query.maxPrice;
     const category  =req.query.category;
