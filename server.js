@@ -1,11 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import productRouter from './src/features/product/product.routes.js';
+import basicAuthorizer from './src/middlewares/basicAuth.middleware.js';
 import userRouter from './src/features/user/user.routes.js';
 
 const server = express();
 server.use(bodyParser.json());
-server.use('/api/products',productRouter);
+server.use('/api/products',basicAuthorizer, productRouter);
 server.use('/api/users',userRouter);
 
 server.get('/',(req,res)=>{
