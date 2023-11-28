@@ -1,3 +1,5 @@
+import { UserModel } from "../user/user.model.js";
+
 export default class ProductModel {
   constructor(id, name, desc, price, imageUrl, category, sizes) {
     this.id = id;
@@ -37,6 +39,47 @@ export default class ProductModel {
     });
     // console.log(filteredProducts);
     return filteredProducts;
+  }
+
+  static rateProduct(userID, productID, rating) {
+    //1. Validate user and Product
+    const user = UserModel.getAll().find((u) => u.id == userID);
+    if (!user) {
+      return "User does not exists";
+    }
+
+    const product = products.find((p) => p.id == productID);
+    if (!product) {
+      return "product not found";
+    }
+
+    // 2. check if there is any ratings and if not add ratings array
+
+    if (!product.ratings) {
+      product.ratings = [];
+      product.ratings.push({
+        userID: userID,
+        rating: rating,
+      });
+    } else {
+      //3. check if user rating is already available
+      const existingRatingIndex = product.ratings.findIndex(
+         (r) => r.userID == userID
+      );
+      if (existingRatingIndex >= 0) {
+        product.ratings[existingRatingIndex] = {
+          userID: userID,
+          rating: rating,
+        };
+      }
+      // 4. If no existing rating then add new rating
+      else {
+        product.ratings.push({
+          userID: userID,
+          rating: rating,
+        });
+      }
+    }
   }
 }
 
