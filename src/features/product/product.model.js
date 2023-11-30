@@ -45,12 +45,12 @@ export default class ProductModel {
     //1. Validate user and Product
     const user = UserModel.getAll().find((u) => u.id == userID);
     if (!user) {
-      return "User does not exists";
+      throw new Error("User does not exists");
     }
 
     const product = products.find((p) => p.id == productID);
     if (!product) {
-      return "product not found";
+      throw new Error("product not found");
     }
 
     // 2. check if there is any ratings and if not add ratings array

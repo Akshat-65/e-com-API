@@ -8,6 +8,7 @@ import jwtAuth from "./src/middlewares/jwt.middleware.js";
 import userRouter from "./src/features/user/user.routes.js";
 import cartRouter from "./src/features/cartItem/cartItems.routes.js";
 import apiDocs from "./swagger.json" assert { type: "json" };
+import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 
 const server = express();
 // CORS policy configurartion
@@ -28,8 +29,9 @@ server.use(cors(corsOptions));
 // });
 server.use(bodyParser.json());
 server.use("/api-docs/", swagger.serve, swagger.setup(apiDocs));
+server.use(loggerMiddleware)
 server.use("/api/products", jwtAuth, productRouter);
-server.use("/api/cartitems", jwtAuth, cartRouter);
+server.use("/api/cartitems", loggerMiddleware,jwtAuth, cartRouter);
 server.use("/api/users", userRouter);
 
 server.get("/", (req, res) => {
