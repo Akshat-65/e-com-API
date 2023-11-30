@@ -9,6 +9,7 @@ import userRouter from "./src/features/user/user.routes.js";
 import cartRouter from "./src/features/cartItem/cartItems.routes.js";
 import apiDocs from "./swagger.json" assert { type: "json" };
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
+import { ApplicationError } from "./src/error-handler/applicationError.js";
 
 const server = express();
 // CORS policy configurartion
@@ -37,6 +38,17 @@ server.use("/api/users", userRouter);
 server.get("/", (req, res) => {
   res.send("Welcome to API");
 });
+
+// Error handler middleware
+server.use((err,req,res,next)=>{
+    console.log(err);
+    if(err instanceof ApplicationError){
+        res.status(err.code).send(err.message);
+    }
+    res.status(500).send("Something went wrong, please try later")
+})
+
+
 // Middleware to handle 404 requests.
 server.use((req, res) => {
   res
