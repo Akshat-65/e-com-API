@@ -10,6 +10,7 @@ import cartRouter from "./src/features/cartItem/cartItems.routes.js";
 import apiDocs from "./swagger.json" assert { type: "json" };
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/error-handler/applicationError.js";
+import connectToMongoDB from "./src/config/mongodb.js";
 
 const server = express();
 // CORS policy configurartion
@@ -58,4 +59,6 @@ server.use((req, res) => {
     );
 });
 
-server.listen(3000);
+server.listen(3000,()=>{
+    connectToMongoDB();
+});
