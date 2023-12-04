@@ -1,3 +1,5 @@
+import dotenv from'dotenv';
+dotenv.config();
 import express from "express";
 import swagger from "swagger-ui-express";
 import bodyParser from "body-parser";
@@ -13,6 +15,8 @@ import { ApplicationError } from "./src/error-handler/applicationError.js";
 import {connectToMongoDB} from "./src/config/mongodb.js";
 
 const server = express();
+// load all the environment variables in application
+
 // CORS policy configurartion
 
 let corsOptions = {

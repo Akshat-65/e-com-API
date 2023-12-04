@@ -19,3 +19,4 @@
 {"level":"info","message":"/api/users/signup - {\"name\":\"Seller User44\",\"email\":\"seller@ecom.com\",\"password\":\"Password2\",\"type\":\"seller\"}","service":"request-logging"}
 {"level":"info","message":"/api/users/signup - {\"name\":\"Seller User444\",\"email\":\"seller@ecom.com\",\"password\":\"Password3\",\"type\":\"seller\"}","service":"request-logging"}
 {"level":"info","message":"/api/users/signup - {\"name\":\"Sellr User444\",\"email\":\"seller@ecom.com\",\"password\":\"Password3\",\"type\":\"seller\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Sellr User444\",\"email\":\"sellr@ecom.com\",\"password\":\"Password3\",\"type\":\"seller\"}","service":"request-logging"}
