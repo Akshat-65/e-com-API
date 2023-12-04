@@ -28,6 +28,19 @@ class UserRepository{
           throw new ApplicationError("Something went wrong with database", 500);
         }
       }
+
+      async findByEmail(email) {
+        try {
+          // 1. Get the database
+          const db = getDB();
+          // 2. get the Collection;
+          const collection = db.collection("users");
+          // 3. Find the document
+       return await collection.findOne({email});
+        } catch (err) {
+          throw new ApplicationError("Something went wrong with database", 500);
+        }
+      }
 }
 
 export default UserRepository;

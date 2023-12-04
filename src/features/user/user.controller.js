@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { ApplicationError } from "../../error-handler/applicationError.js";
 import { UserModel } from "./user.model.js";
 import jwt from "jsonwebtoken";
@@ -10,21 +11,27 @@ export class UserController {
 
   async signIn(req, res) {
     try {
-      const result = await this.userRepository.signIn(
-        req.body.email,
-        req.body.password
-      );
-      if (!result) {
+      // 1. Find user by email
+      const user = await this.userRepository.findByEmail(req.body.email);
+      if(!user){
         return res.status(400).send("Incorrect credentials");
-      } else {
-        // 1. Create JWT
+      }
+      else{
+        // 2.compare password with hashed password
+        const result =  await bcrypt.compare(req.body.password,user.password);
+        if(result){
+        // 3. Create JWT
         const token = jwt.sign(
           { userID: result.id, email: result.email },
           "7H9oNtw7VmBrhAgUUxPlNk2wEaHjDvZr",
           { expiresIn: "1h" }
         );
-        // 2. Send token
+        // 4. Send token
         return res.status(200).send(token);
+        }
+        else{
+          return res.status(400).send("Incorrect credentials");
+        }
       }
     } catch (err) {
       return res.status(200).send("Something went wrong");
@@ -34,7 +41,8 @@ export class UserController {
   async signUp(req, res) {
     try {
       const { name, email, password, type } = req.body;
-      const user = new UserModel(name, email, password, type);
+      const hashPassword = await bcrypt.hash(password,12);
+      const user = new UserModel(name, email, hashPassword, type);
       await this.userRepository.signUp(user);
       res.status(201).send(user);
     } catch (err) {
