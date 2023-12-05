@@ -1,15 +1,21 @@
-import express from 'express';
-import ProductController from './product.controller.js';
-import { upload } from '../../middlewares/fileUpload.middleware.js';
+import express from "express";
+import ProductController from "./product.controller.js";
+import { upload } from "../../middlewares/fileUpload.middleware.js";
 
- const productRouter = express.Router();
+const productRouter = express.Router();
 
 const productController = new ProductController();
 
-productRouter.get('/',productController.getAllProducts);
-productRouter.post('/rate',productController.rateProduct);
-productRouter.get('/filter',productController.filterProducts);
-productRouter.get('/:id',productController.getOneProduct);
-productRouter.post('/', upload.single('imageUrl') ,productController.addProduct);
+productRouter.get("/", (req, res) =>
+  productController.getAllProducts(req, res)
+);
+productRouter.post("/rate", productController.rateProduct);
+productRouter.get("/filter", productController.filterProducts);
+productRouter.get("/:id", (req, res) =>
+  productController.getOneProduct(req, res)
+);
+productRouter.post("/", upload.single("imageUrl"), (req, res) =>
+  productController.addProduct(req, res)
+);
 
 export default productRouter;

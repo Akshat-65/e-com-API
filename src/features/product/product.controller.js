@@ -1,30 +1,53 @@
+import { ApplicationError } from "../../error-handler/applicationError.js";
 import ProductModel from "./product.model.js";
+import ProductRepository from "./product.repository.js";
 
 export default class ProductController {
-  getAllProducts(req, res) {
-    const products = ProductModel.getAll();
-    res.status(200).send(products);
+  constructor() {
+    this.productRepository = new ProductRepository();
   }
 
-  addProduct(req, res) {
-    const { name, price, sizes } = req.body;
-    const newProduct = {
-      name,
-      price: Math.floor(price),
-      sizes: sizes.split(","),
-      imageUrl: req.file.filename,
-    };
-    const createdProduct = ProductModel.add(newProduct);
-    res.status(201).send(createdProduct);
-  }
-
-  getOneProduct(req, res) {
-    const getProductId = req.params.id;
-    let product = ProductModel.getProductById(getProductId);
-    if (!product) {
-      res.status(404).send("Product not found");
+  async getAllProducts(req, res) {
+    try {
+      const products = await this.productRepository.getAll();
+      res.status(200).send(products);
+    } catch (err) {
+      throw new ApplicationError("Something went wrong", 500);
     }
-    res.status(200).send(product);
+  }
+
+  async addProduct(req, res) {
+    try {
+      const { name, price, sizes } = req.body;
+      const newProduct = new ProductModel(
+        name,
+        null,
+        parseFloat(price),
+        req.file.filename,
+        null,
+        sizes.split(",")
+      );
+     const createdProduct =  await this.productRepository.add(newProduct);
+     console.log(createdProduct);
+      res.status(201).send(createdProduct);
+    } catch (err) {
+      console.log(err);
+      throw new ApplicationError("Something went wrong", 500);
+    }
+  }
+
+  async getOneProduct(req, res) {
+    try {
+      const getProductId = req.params.id;
+      const product = await this.productRepository.get(getProductId);
+      if (!product) {
+        res.status(404).send("Product not found");
+      } else {
+        res.status(200).send(product);
+      }
+    } catch (err) {
+      throw new ApplicationError("Something went wrong", 500);
+    }
   }
 
   rateProduct(req, res) {
@@ -36,7 +59,7 @@ export default class ProductController {
     } catch (error) {
       return res.status(400).send(error.message);
     }
-   return  res.status(200).send("Rating has been added");
+    return res.status(200).send("Rating has been added");
   }
 
   filterProducts(req, res) {
