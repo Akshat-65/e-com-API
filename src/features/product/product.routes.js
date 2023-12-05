@@ -9,8 +9,12 @@ const productController = new ProductController();
 productRouter.get("/", (req, res) =>
   productController.getAllProducts(req, res)
 );
-productRouter.post("/rate", productController.rateProduct);
-productRouter.get("/filter", productController.filterProducts);
+productRouter.post("/rate", (req, res) =>
+  productController.rateProduct(req, res)
+);
+productRouter.get("/filter", (req, res) =>
+  productController.filterProducts(req, res)
+);
 productRouter.get("/:id", (req, res) =>
   productController.getOneProduct(req, res)
 );

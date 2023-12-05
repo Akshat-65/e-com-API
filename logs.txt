@@ -38,3 +38,22 @@
 {"level":"info","message":"/api/products/ - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/ - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/656ef10a0856fcb3c4c85294 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/656ef10a0856fcb3c4c85294 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=2000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?maxPrice=10000%20&%20minPrice=%209500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?maxPrice=10000&minPrice=%209500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?maxPrice=1000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9100&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9100&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9100&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9000&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9000&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9000&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9100&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/656ef10a0856fcb3c4c85294 - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Sellr User444\",\"email\":\"sellrr@ecom.com\",\"password\":\"Password3\",\"type\":\"seller\"}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=9000&maxPrice=10000 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productID=656ef10a0856fcb3c4c85294&rating=4.5 - {}","service":"request-logging"}
