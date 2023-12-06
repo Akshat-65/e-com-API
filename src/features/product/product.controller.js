@@ -50,12 +50,12 @@ export default class ProductController {
     }
   }
 
-  rateProduct(req, res) {
+  async rateProduct(req, res) {
     try {
       const userID = req.userID;
       const productID = req.query.productID;
       const rating = req.query.rating;
-      this.productRepository.rate(userID, productID, rating);
+     await this.productRepository.rate(userID, productID, rating);
     } catch (error) {
       return res.status(400).send(error.message);
     }
