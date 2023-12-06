@@ -10,10 +10,11 @@ class CartItemsRepository {
     try {
       const db = getDB();
       const collection = db.collection(this.collection);
-      return await collection.insertOne({
+      return await collection.updateOne({
         productID: new ObjectId(productID),
         userID: new ObjectId(userID),
-        quantity,
+      },{$inc:{quantity:quantity}},{
+        upsert:true
       });
     } catch (err) {
       throw new ApplicationError("Something went wrong with database", 500);
