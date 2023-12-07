@@ -13,6 +13,7 @@ import apiDocs from "./swagger.json" assert { type: "json" };
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/error-handler/applicationError.js";
 import {connectToMongoDB} from "./src/config/mongodb.js";
+import orderRouter from './src/features/order/order.router.js';
 
 const server = express();
 // load all the environment variables in application
@@ -36,6 +37,7 @@ server.use(cors(corsOptions));
 server.use(bodyParser.json());
 server.use("/api-docs/", swagger.serve, swagger.setup(apiDocs));
 server.use(loggerMiddleware)
+server.use("/api/orders", jwtAuth,orderRouter);
 server.use("/api/products", jwtAuth, productRouter);
 server.use("/api/cartitems", loggerMiddleware,jwtAuth, cartRouter);
 server.use("/api/users", userRouter);
